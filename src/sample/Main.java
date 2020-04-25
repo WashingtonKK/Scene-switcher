@@ -29,6 +29,8 @@ public class Main extends Application {
     Scene scene;
     Scene scene1;
 
+    //Nodes to create a dialog box
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -47,6 +49,10 @@ public class Main extends Application {
         Click.setOnAction(e -> {
             iCounter++;
             lbl1.setText("You have clicked me " + iCounter + " times");
+            if (iCounter == 1) {
+                MessageBox.show("You have clicked once!" , "Click");
+            } else
+                MessageBox.show("You have clicked " +iCounter + " times", "Click!" );
         });
 
         btnSubtract = new Button();
@@ -73,13 +79,22 @@ public class Main extends Application {
         pane1.setTop(lbl1);
         scene1 = new Scene(pane1, 400, 400);
 
-        primaryStage.setTitle("Hello World");
+        //Dialog box
+
+        primaryStage.setTitle("Scene changer");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private void switchMethod1() {
-        stage.setScene(scene);
+        boolean proceed;
+        proceed = ConfirmationBox.show("Are you sure you want to switch?", "Confirmation", "YES", "NO");
+
+        if (proceed == true) {
+            stage.setScene(scene);
+            stage.setTitle("Add-subtract");
+        } else
+            MessageBox.show("Try again later, when you agree!!" , "Confirmation required");
     }
 
     private void Add() {
@@ -93,7 +108,14 @@ public class Main extends Application {
     }
 
     private void switchMethod() {
-        stage.setScene(scene1);
+        boolean proceed;
+        proceed = ConfirmationBox.show("Are you sure you want to switch?", "Confirmation", "YES", "NO");
+
+        if (proceed == true) {
+            stage.setScene(scene1);
+            stage.setTitle("Add-subtract");
+        } else
+            MessageBox.show("Try again later, when you agree!!" , "Confirmation required");
     }
 
 
